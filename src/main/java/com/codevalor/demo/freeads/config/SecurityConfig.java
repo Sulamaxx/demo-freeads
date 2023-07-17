@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .build();
     }
 
+<<<<<<< Updated upstream
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -60,4 +61,7 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+=======
+
+>>>>>>> Stashed changes
 }
