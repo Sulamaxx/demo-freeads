@@ -56,6 +56,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         userRepository.save(user);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        response.sendRedirect("http://localhost:3000/login/redirect?token=" + jwtUtil.generateToken(userDetailsService.loadUserByUsername(email)));
+        response.sendRedirect("http://localhost:3000/login/token/" + jwtUtil.generateToken(userDetailsService.loadUserByUsername(email)));
     }
 }
