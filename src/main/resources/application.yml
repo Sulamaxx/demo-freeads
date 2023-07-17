@@ -1,12 +1,15 @@
-
 spring:
   datasource:
-    password: sulochana123
-    url: jdbc:mysql://localhost:3306/freeAdsDemo
+    password: password
+    url: jdbc:mysql://localhost:3306/free_ads_demo
     username: root
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 
   security:
     oauth2:
@@ -15,6 +18,3 @@ spring:
           google:
             clientId: 692391568024-lh3g3433suegam6g9s06ovfcc3sme36k.apps.googleusercontent.com
             clientSecret: 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
-            scope:
-              - email
-              - profile
