@@ -2,6 +2,7 @@ package com.codevalor.demo.freeads.config;
 
 import com.codevalor.demo.freeads.filter.JwtTokenFilter;
 import com.codevalor.demo.freeads.service.UserDetailsServiceImpl;
+import com.codevalor.demo.freeads.util.AuthenticationSuccessHandlerImpl;
 import com.codevalor.demo.freeads.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +32,7 @@ public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
+    private final AuthenticationSuccessHandlerImpl successHandler;
 
     @Bean
     public AuthenticationManager authenticationManager() {
@@ -50,7 +52,9 @@ public class SecurityConfig {
                             .anyRequest().authenticated();
                 })
                 .addFilterBefore(new JwtTokenFilter(userDetailsService, jwtUtil), UsernamePasswordAuthenticationFilter.class)
-                .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> {
+                    oauth2.successHandler(successHandler);
+                })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(ex -> {
                     ex.authenticationEntryPoint((request, response, authException) -> response.sendError(401, "Unauthorized"));
